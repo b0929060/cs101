@@ -4,7 +4,11 @@
 int main(){
     FILE* fp;
     time_t curtime;
-    curtime = time(NULL);
+    struct tm *info;
+    char buffer[80];
+    time(&curtime);
+    info = localtime(&curtime);
+    strftime(buffer,80,"%c",info);
     int N;
     printf("歡迎光臨長庚樂透彩購買機台\n");
     printf("請問您要買幾組樂透彩： ");
@@ -15,7 +19,7 @@ int main(){
     int i,n=6,num;
     srand((unsigned) time(NULL));
     fprintf(fp,"======== lotto649 ========\n");
-    fprintf(fp," %s",ctime(&curtime));
+    fprintf(fp,"=%s=\n",buffer);
 
     for(int j=1;j<n;j++) {
         fprintf(fp,"[%d]: ",j);
@@ -28,7 +32,7 @@ int main(){
                     fprintf(fp,"0%d ",num);
                 }
             }
-            fprintf(fp,"0%d\n",rand()%10); 
+            fprintf(fp,"0%d\n",rand()%9+1); 
             N--;
         } else {
             for(i=0;i<n+1;i++) {
