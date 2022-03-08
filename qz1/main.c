@@ -11,15 +11,11 @@ int main(){
     time(&curtime);
     info = localtime(&curtime);
     strftime(buffer,80,"%c",info);
-    if ((fp2=fopen("count.bin","rb"))==NULL) {
-    } else {
+    if ((fp2 = fopen("count.bin","rb"))!=NULL) {
         fp2 = fopen("count.bin", "rb");
 	    fread(count, sizeof(int), 1, fp2);
 	    fclose(fp2);
     }
-    // fp2 = fopen("count.bin", "rb");
-	// fread(count, sizeof(int), 1, fp2);
-	// fclose(fp2);
     printf("歡迎光臨長庚樂透彩購買機台\n");
     printf("請問您要買幾組樂透彩： ");
     scanf("%d",&N);
