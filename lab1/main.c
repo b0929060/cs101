@@ -80,8 +80,8 @@ int main(){
     fp2=fopen("count.bin","wb+");
     fwrite(count,sizeof(count),1,fp2);
     fclose(fp2);
-    fp_op = fopen("operator.bin", "wb");
-    fwrite(operator+1, sizeof(int), 1, fp_op);
+    fp_op = fopen("operator.bin", "wb+");
+    fwrite(operator, sizeof(int), 1, fp_op);
     fclose(fp_op);
     return 0;
 }
