@@ -18,8 +18,8 @@ int main(){
 	    fclose(fp2);
     }
     FILE* fp_op;
-    if ((fp_op = fopen("operator.bin","rb"))!=NULL) {
-        fp_op = fopen("operator.bin", "rb");
+    if ((fp_op = fopen("operator.bin","r"))!=NULL) {
+        fp_op = fopen("operator.bin", "wb");
 	    fwrite(operator_id[operator], sizeof(int), 1, fp_op);
 	    fclose(fp_op);
     }
@@ -81,5 +81,8 @@ int main(){
     fp2=fopen("count.bin","wb+");
     fwrite(count,sizeof(count),1,fp2);
     fclose(fp2);
+    fp_op = fopen("operator.bin", "wb");
+	fwrite(operator_id[operator], sizeof(int), 1, fp_op);
+	fclose(fp_op);
     return 0;
 }
