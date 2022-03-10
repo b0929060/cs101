@@ -20,7 +20,6 @@ int main(){
     FILE* fp_op;
     if ((fp_op = fopen("operator.bin","r"))!=NULL) {
         fp_op = fopen("operator.bin", "wb");
-	    fwrite(operator_id[operator], sizeof(int), 1, fp_op);
 	    fclose(fp_op);
     }
     printf("歡迎光臨長庚樂透彩購買機台\n");
@@ -82,7 +81,7 @@ int main(){
     fwrite(count,sizeof(count),1,fp2);
     fclose(fp2);
     fp_op = fopen("operator.bin", "wb");
-	fwrite(operator_id[operator], sizeof(int), 1, fp_op);
-	fclose(fp_op);
+    fwrite(operator+1, sizeof(int), 1, fp_op);
+    fclose(fp_op);
     return 0;
 }
