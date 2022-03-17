@@ -109,7 +109,7 @@ int main(){
     fp_op = fopen("operator.bin", "wb");
     fwrite(&operator,sizeof(int),1,fp_op);
     fclose(fp_op);
-    fp_rec =fopen("recoeds.bin","ab");
+    fp_rec =fopen("records.bin","ab");
     fwrite(&record_t,sizeof(record_t),1,fp_rec);
     fclose(fp_rec);
     return 0;
