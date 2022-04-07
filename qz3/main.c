@@ -35,8 +35,9 @@ int multiplication(int i,int j) {
 
 int main() {
     char s[]="1234567890";
-    int n = 3;
+    int n = 16;
     rec_dec(s);
+    printf("\n");
     hanoi_tower(n,'A','C','B');
     multiplication(1,1);
     return 0;
