@@ -20,25 +20,26 @@ int main() {
     find_num(p,n,9);
     printf("No.2 --------------------\n");
     int* ap[10];
+    int indx[10];
     //排序大小
 	for (int i = 0; i < 10; ++i) {          
 		for (int j = 0; j < 9 - i; ++j) { 
 			if (n[j] > n[j + 1]) {
 				int temp = n[j];
-				n[j] = n[j + 1];
-				n[j + 1] = temp;
+				indx[j] = n[j + 1];
+				indx[j + 1] = temp;
 			}
 		}
 	}
 // 	for (int i=0;i<10;i++) {
-//         printf("%d,",n[i]);
+//         printf("%d,",indx[i]);
 //     }
     for (int i=0;i<10;i++) {
         ap[i]=&n[i];
     }
     for (int i=0;i<10;i++) {
-        printf("&n[%d]->%p, n[%d]=%d; ",i,&n[i],i,n[i]);
-        printf("ap[%d]->%p, *ap[%d]=%d\n",i,ap[i],i,*ap[i]);
+        printf("&n[%i]->%p, n[%i]=%d; ",indx[i],&n[indx[i]],i,n[indx[i]]);
+        printf("ap[%i]->%p, *ap[%i]=%i\n",i,ap[i],i,*ap[i]);
     }
 
     return 0;
