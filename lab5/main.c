@@ -25,14 +25,25 @@ typedef struct array_list {
     void (*PRINT_ARRAY)(int*,int);
 } array_list_t;
 
-// int func(char a[], char b[]) {
-//     strcpy(a,b);
-//     return a;
-// }
+char* ptr;
+char* func(char a[], char b[]) {
+    int alen=0,blen=0,i=0,j=0;
+    while (a[i++]!='\0') {alen++;}
+    while (b[j++]!='\0') {blen++;}
+	ptr = (char*)calloc(alen+blen,sizeof(char));
+	for(int i=0; i<alen;i++) {
+		ptr[i]=a[i];
+	}
+	for(int i=0;i<blen;i++) {
+		ptr[alen+i] = b[i];
+	}
+	ptr[alen+blen] = '\0';
+	return ptr;
+}
 
-// int add_func(char a[], char b[], char (*func_ptr)(char, char)) {
-//     return func_ptr(a,b);
-// }
+char* add_str_func(char a[], char b[], char* (*func_ptr)(char*, char*)) {
+	return func_ptr(a,b);
+}
 
 int main() {
     int n = 10;
@@ -46,24 +57,22 @@ int main() {
     ip=NULL;
     printf("No.2 --------------------\n");
     array_list_t array_list;
-    array_list.n=15;
+    array_list.n=20;
     array_list.GET_INT_ARRAY=get_int_array;
     array_list.SET_VALUE=set_value;
     array_list.PRINT_ARRAY=print_array;
-    ip = GET_INT_ARRAY(array_list.n);
-    for (int i=0;i<n;i++) {
-        SET_VALUE(ip+i,i+1);
+    int* ip2 = array_list.GET_INT_ARRAY(array_list.n);
+    for (int i=0;i<array_list.n;i++) {
+        array_list.SET_VALUE(ip2+i,i+1);
     }
-    PRINT_ARRAY(ip,array_list.n);
-    free(ip);
-    ip=NULL;
+    array_list.PRINT_ARRAY(ip2,array_list.n);
+    free(ip2);
+    ip2=NULL;
     printf("No.3 --------------------\n");
     char a[]="IU!IU!";
     char b[]="@CGU";
-    int alen=0,blen=0,i=0,j=0;
-    while (a[i++]!='\0') {alen++;}
-    while (b[j++]!='\0') {blen++;}
-    //printf("alen:%d blen:%d",alen,blen);
-    //printf("add_str_func = %s\n",add_str_func(a,b,func));
+    printf("add_str_func = %s\n",add_str_func(a,b,func));
+    free(ptr);
+    ptr=NULL;
     return 0;
 }
