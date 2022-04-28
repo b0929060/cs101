@@ -1,60 +1,52 @@
 #include <stdio.h>
-int g_mem[10];
+
 typedef struct my_mm {
-    int used[10];       //有無被占用
-    int ptr[10];        //被哪個pointer占用
+    int* calloced_p[10];
 } my_mm_t;
 my_mm_t mms;
-int num=0;
-int* my_calloc(int n,int size) {
-    if (num==0) {
-        num=n;    
-    } else {
-        num=num+n;
-    }
-    int flag=0,spc=0,indx=0;
+int g_mm[10];
+void printf_calloc_array(int flag) {
     for (int i=0;i<10;i++) {
-        if (mms.used[i]==0&spc==0) {
-            spc++;
-            indx=i;
-        } else if (mms.used[i]==0) {
-            spc++;
-        }
+        (mms.calloced_p[i])? printf("1"):printf("0");
     }
-    if (spc>=size) {
-        for (int i=indx;i<indx+size;i++) {
-            mms.used[i]=1;
-            mms.ptr[i]=num;
-        }
-        printf("mms->");    //印出mms
-        for (int i=0;i<10;i++) {
-            printf("%d",mms.used[i]);
-        }
-        printf("\n");
-        return mms.used+indx; //(有空的第一個位置?);
-    } else {  
-        printf("mms->");    //印出mms
-        for (int i=0;i<10;i++) {
-            printf("%d",mms.used[i]);
-        }
-        printf(" <— Out of space\n");
-        return NULL;    //沒空間,回傳NULL給np 
-    }
-}
-void my_free(int* p) {
-    *p=0;
-    p=NULL;
-    for (int i=0;i<10;i++) {
-        if (mms.ptr[i]==num) {
-            mms.ptr[i]=0;
-        }
-    }
-    printf("mms->");    //印出mms
-    for (int i=0;i<10;i++) {
-        printf("%d",mms.used[i]);
+    if (!flag) {
+        printf(" <- Out of space");
     }
     printf("\n");
 }
+int* my_calloc(int n,int size) {
+    int av_size = 0;
+    int index;
+    for (index=0;index<10;index++) {
+        if (!mms.calloced_p[index]) {
+            av_size++;
+        } else {
+            av_size=0;
+        }
+        if (av_size == size) {
+            index -= size-1;
+            break;
+        }
+    }
+    if (av_size < size) {
+        printf_calloc_array(0);
+        return NULL;
+    }
+    for (int i=0;i<size;i++) {
+        mms.calloced_p[index+i] = &g_mm[index];
+    }
+    printf_calloc_array(1);
+    return &g_mm[index];
+}
+void my_free(int* p) {
+    for (int i=0;i<10;i++) {
+        if (mms.calloced_p[i] == p) {
+            mms.calloced_p[i] = NULL;
+        }
+    }
+    printf_calloc_array(1);
+}
+
 int main() {
     int* np1 = my_calloc(1,1);
     int* np2 = my_calloc(1,2);
@@ -62,6 +54,6 @@ int main() {
     int* np4 = my_calloc(1,4);
     my_free(np1);
     my_free(np4);
-    int* np5 = my_calloc(1,3);
+    int* np5 = my_calloc(1,5);
     return 0;
 }
