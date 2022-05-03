@@ -12,12 +12,17 @@ int _mult(int x,int y) {
 int _div(int x,int y) {
     return x/y;
 }
+// int _power(int x,int y) {
+//     int ans=x;
+//     for(int i=1;i<y;i++) {
+//         ans*=x;
+//     }
+//     return ans;
+// }
 int _power(int x,int y) {
-    int ans=x;
-    for(int i=1;i<y;i++) {
-        ans*=x;
-    }
-    return ans;
+    if(y==0) return 1;
+    else if(y==1) return x;
+    else return x*_power(x,y-1);
 }
 
 int main() {
