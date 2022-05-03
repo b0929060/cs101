@@ -20,8 +20,7 @@ int _div(int x,int y) {
 //     return ans;
 // }
 int _power(int x,int y) {
-    if(y==0) return 1;
-    else if(y==1) return x;
+    if(y==1) return x;
     else return x*_power(x,y-1);
 }
 
