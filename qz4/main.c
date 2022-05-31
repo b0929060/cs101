@@ -28,13 +28,12 @@ char* copy_string(char* s) {
     for (int i=0;i<len;i++) {
         ptr[i] = (char*)calloc(10,sizeof(char));
         s--;
-    }
-    s--;
+    } s--;
     for (int i=0;i<len;i++) {
         ptr[i]=s++;
         return ptr[i];
     }
-    free(ptr[len]);
+    free(ptr[len]); ptr[len]=NULL;
 }
 
 int main() {
