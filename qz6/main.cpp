@@ -36,9 +36,9 @@ class StandardClock : Clock {
     string ti;
     StandardClock(int h,int m,int s,string t) : Clock(h,m,s,t) {
         if(t=="AM") {
-            ti="§W§»";
+            ti="‰∏äÂçà";
         } else {
-            ti="§U§»";
+            ti="‰∏ãÂçà";
         }
     }
     string get_ti() {
